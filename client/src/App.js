@@ -1,4 +1,4 @@
-import TextEditor from "./TextEditor"
+import {TextEditor, Tabs, DrawingBoard, ResizingDragbar} from "./components"
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,11 +11,20 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/resize" exact>
+          <ResizingDragbar/>
+        </Route>
         <Route path="/" exact>
           <Redirect to={`/documents/${uuidV4()}`} />
         </Route>
         <Route path="/documents/:id">
-          <TextEditor />
+          <div style = {{
+            display: "flex",
+          }}>
+            <ResizingDragbar
+            itemOne = {<TextEditor />}
+            itemTwo = {<Tabs tabContentItem = {<DrawingBoard/>}/>}/>
+          </div>
         </Route>
       </Switch>
     </Router>
